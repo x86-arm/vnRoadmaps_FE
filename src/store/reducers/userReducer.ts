@@ -2,17 +2,21 @@ import authServices, { LoginData } from "@/services/authServices"
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
 export const login = createAsyncThunk('user/login', async (data: LoginData, { rejectWithValue }) => {
-    const res = await authServices.login(data)
-    if (res.status != 200) {
-        rejectWithValue(res.data || "Error")
+    try {
+        const res = await authServices.login(data)
+
+        return res.data
     }
-    return res.data
+    catch (error: any) {
+        return rejectWithValue(error.response.data.message)
+    }
+    // if (res.status != 200) rejectWithValue(res.data)
 })
 
 interface InitialState {
     info: null | Session,
     isLoading: boolean,
-    error: null | string,
+    error: any,
     tokens: {
         accessToken: string | null,
         refreshToken: string | null
@@ -58,7 +62,7 @@ const userReducer = createSlice({
             })
             .addCase(login.rejected, (state, action) => {
                 state.isLoading = false
-                state.error = action.error.message || "ERROR!!"
+                state.error = "err"
             })
     }
 

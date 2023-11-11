@@ -20,13 +20,13 @@ interface Route {
 
 // Public routes
 const privateRoutes: Route[] = [
-  { path: '/', component: Home, layout: DefaultLayout },
   { path: '/roadmaps', component: Roadmaps, layout: DefaultLayout },
   { path: '/roadmaps/:slug', component: RoadmapsItem, layout: DefaultLayout },
   { path: '/infochange', component: InfoChange, layout: DefaultLayout },
 ];
 
 const publicRoutes: Route[] = [
+  { path: '/', component: Home, layout: DefaultLayout },
   { path: '/login', component: Login, layout: AuthLayout },
   { path: '/signup', component: Signup, layout: AuthLayout },
 ];

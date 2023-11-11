@@ -7,14 +7,13 @@ export default function ProtectedPublicRoute({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
 
   const token = store.getState().userReducer.tokens.accessToken;
   // if (load) {
   //   return <LoadingScreen />;
   // }
   if (token) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/roadmaps" replace />;
   }
 
   return <>{children}</>;

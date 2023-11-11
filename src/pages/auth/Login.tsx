@@ -75,7 +75,7 @@ export default function Login() {
   });
 
   const handleLogin = async (data: z.infer<typeof formSchema>) => {
-    setOnLogin(true);
+    // setOnLogin(true);
     await dispatch(login(data))
       .then(unwrapResult)
       .then((originalPromiseResult) => {
@@ -86,10 +86,11 @@ export default function Login() {
         setTimeout(() => navigate('/'), 3000);
         console.log(originalPromiseResult);
       })
-      .catch((rejectedValueOrSerializedError: SerializedError) => {
+      .catch((rejectedValueOrSerializedError: any) => {
+        console.log(rejectedValueOrSerializedError);
         toast({
           title: 'Đăng nhập thất bại',
-          description: rejectedValueOrSerializedError.message,
+          description: rejectedValueOrSerializedError,
         });
         setOnLogin(false);
       });

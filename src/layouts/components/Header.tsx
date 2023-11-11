@@ -19,27 +19,12 @@ import Menu from '../../components/Menu';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function Header() {
-  const publicPage = ['/login', '/signup'];
-  // const t = useTranslations();
   const location = useLocation();
   const path = location.pathname;
 
-  // const { stateAuthStore, dispatch } = useAuthStore();
-
-  useEffect(() => {
-    if (!publicPage.includes(path)) {
-      if (path !== '/') {
-        // dispatch(getUserData(""));
-      }
-    }
-  }, []);
-
   return (
     <header
-      className={`sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur ${
-        publicPage.includes(path) && 'hidden'
-      }
-  `}
+      className={`sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur `}
     >
       <div className="mx-auto flex h-14 w-full items-center px-8">
         <Sheet>
@@ -51,12 +36,12 @@ export default function Header() {
               <SheetTitle>
                 <Logo />
               </SheetTitle>
-              <div className="flex items-center justify-between rounded-md p-3 transition-colors hover:bg-muted">
+              {/* <div className="flex items-center justify-between rounded-md p-3 transition-colors hover:bg-muted">
                 <div className="flex">
                   <Mountain /> <span className="ml-2">Thử thách</span>
                 </div>
                 <ChevronDown className="" />
-              </div>
+              </div> */}
               {/* <SheetDescription>
                 This action cannot be undone. This will permanently delete your
                 account and remove your data from our servers.
@@ -72,7 +57,7 @@ export default function Header() {
         <div className="flex flex-1 items-center justify-end space-x-2">
           {/* <LanguageChange locale={locale} /> */}
           <ThemeChanger />
-          {path == '/' ? (
+          {path != '/roadmaps' ? (
             <Button variant={'outline'} asChild>
               <Link to="/login">Đăng nhập</Link>
             </Button>

@@ -7,8 +7,7 @@ export default function ProtectedRoute({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
-  const token = store.getState().userReducer.tokens.accessToken
+  const token = store.getState().userReducer.tokens.accessToken;
 
   // if (load) {
   //   return <LoadingScreen />;
@@ -17,5 +16,5 @@ export default function ProtectedRoute({
   if (!token) {
     return <Navigate to="/login" replace />;
   }
-
+  return <>{children}</>;
 }
