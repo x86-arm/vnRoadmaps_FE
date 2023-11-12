@@ -3,18 +3,34 @@ import { Input } from '@/components/ui/input';
 import { motion } from 'framer-motion';
 import SearchResult from '@/components/SearchResult';
 import { provinceServices } from '@/services/provinceServices';
+import { useDispatch } from 'react-redux';
+import { AppDispatch, store } from '@/store';
+import { info } from '@/store/reducers/userReducer';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 export default function Roadmaps() {
   const [searchInput, setSearchInput] = useState('');
   const [provinces, setProvinces] = useState<
     { name: string; slug: string }[] | []
   >([]);
+  const [userInfo, setUserInfo] = useState<Session>();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     provinceServices
-      .getProvincesSlug()
+      .getProvincesSlug(
+        store.getState().userReducer.tokens.accessToken || undefined
+      )
       .then((res) => setProvinces(res.data))
       .catch(() => setProvinces([]));
+    dispatch(info(null))
+      .then(unwrapResult)
+      .then((originalPromiseResult) => {
+        setUserInfo(originalPromiseResult);
+      })
+      .catch((rejectedValueOrSerializedError: any) => {
+        console.log(rejectedValueOrSerializedError);
+      });
   }, []);
 
   const filteredData = provinces.filter((el) => {
@@ -24,10 +40,6 @@ export default function Roadmaps() {
       return el.name.toLowerCase().includes(searchInput.toLowerCase());
     }
   });
-
-  //   const { stateAuthStore, dispatch, authSlice } = useAuthStore();
-
-  //   const session = stateAuthStore.session;
 
   return (
     <div>
@@ -39,7 +51,7 @@ export default function Roadmaps() {
                 <h2>
                   xin chào{' '}
                   <span className="bg-gradient-to-tr from-zinc-300 to-emerald-400 bg-clip-text text-transparent">
-                    {/* {session?.fullname} */}
+                    {userInfo?.fullname}
                   </span>
                 </h2>
                 <h1>

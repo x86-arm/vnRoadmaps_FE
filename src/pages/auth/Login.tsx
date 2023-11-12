@@ -30,12 +30,11 @@ import { AppDispatch } from '@/store';
 import Logo from '@/components/Logo';
 
 const formSchema = z.object({
-  username: z
-    .string()
-    .min(4, {
-      message: 'Tên đăng nhập phải dài ít nhất 4 kí tự.',
-    })
-    .max(256),
+  email: z.string().email(),
+  // .min(4, {
+  //   message: 'Email quá ngắn!',
+  // })
+  // .max(256),
   password: z
     .string()
     .regex(
@@ -69,13 +68,13 @@ export default function Login() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: '',
+      email: '',
       password: '',
     },
   });
 
   const handleLogin = async (data: z.infer<typeof formSchema>) => {
-    // setOnLogin(true);
+    setOnLogin(true);
     await dispatch(login(data))
       .then(unwrapResult)
       .then((originalPromiseResult) => {
@@ -87,7 +86,6 @@ export default function Login() {
         console.log(originalPromiseResult);
       })
       .catch((rejectedValueOrSerializedError: any) => {
-        console.log(rejectedValueOrSerializedError);
         toast({
           title: 'Đăng nhập thất bại',
           description: rejectedValueOrSerializedError,
@@ -115,7 +113,7 @@ export default function Login() {
             </p>
             <FormField
               control={form.control}
-              name="username"
+              name="email"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
@@ -166,6 +164,12 @@ export default function Login() {
             <Button type="submit" disabled={onLogin}>
               Đăng nhập
             </Button>
+            <Link
+              to="/forgotPassword"
+              className="text-center font-semibold hover:underline"
+            >
+              Quên mật khẩu?
+            </Link>
             <p className="text-center">
               Bạn không có tài khoản?{' '}
               <Link to={'/signup'} className="font-semibold hover:underline">

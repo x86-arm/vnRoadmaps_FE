@@ -12,6 +12,7 @@ import {
 import { Button } from './ui/button';
 import authServices from '@/services/authServices';
 import { Link } from 'react-router-dom';
+import { store } from '@/store';
 
 export default function Menu({
   children,
@@ -24,9 +25,10 @@ export default function Menu({
   const handleLogout = () => {
     setOnLogout(true);
     authServices
-      .logout()
+      .logout(store.getState().userReducer.tokens.accessToken || undefined)
       .then(() => {
         setOnLogout(true);
+        document.cookie = '';
         window.location.reload();
       })
       .catch(() => setOnLogout(false));
@@ -46,15 +48,15 @@ export default function Menu({
             {/* <TopArrowIcon className="absolute -top-2 block h-2 w-6 text-white" /> */}
           </a>
           <ul className="min-w-[223px] rounded-md border bg-background py-2 font-semibold leading-[22px] shadow-[#0000001f_0px_4px_16px] ">
-            <li className="cursor-pointer p-0 hover:bg-muted">
+            {/* <li className="cursor-pointer p-0 hover:bg-muted">
               <Link
                 to={'/infochange'}
                 className="flex items-center p-[10px_8px_10px_16px]"
               >
                 <SettingsIcon />
                 <span className="ml-[6px] text-[16px]">Thay đổi thông tin</span>
-              </Link>
-            </li>
+              </Link> */}
+            {/* </li> */}
             <Dialog>
               <DialogTrigger asChild>
                 <li className="cursor-pointer border-t p-0 hover:bg-muted">

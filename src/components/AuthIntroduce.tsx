@@ -21,13 +21,11 @@ export default function AuthIntroduce() {
   return (
     <div className="hidden w-full flex-col justify-between bg-zinc-900 p-10 text-white dark:border-r md:flex">
       <Logo className="h4" />
-      <AspectRatio ratio={16 / 9} className="flex justify-center">
-        <img
+        <img 
           alt="hanoi-beef-noodle-soup"
           src={authIntroduceItem.img}
-          className="rounded-md object-cover"
+          className="rounded-md object-cover w-"
         />
-      </AspectRatio>
       <p dangerouslySetInnerHTML={{ __html: authIntroduceItem.description }} />
     </div>
   );

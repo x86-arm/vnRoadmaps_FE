@@ -7,7 +7,6 @@ export default function ProtectedPublicRoute({
 }: {
   children: React.ReactNode;
 }) {
-
   const token = store.getState().userReducer.tokens.accessToken;
   // if (load) {
   //   return <LoadingScreen />;
@@ -15,6 +14,5 @@ export default function ProtectedPublicRoute({
   if (token) {
     return <Navigate to="/roadmaps" replace />;
   }
-
   return <>{children}</>;
 }

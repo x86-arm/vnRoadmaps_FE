@@ -35,9 +35,9 @@ export function HeaderNavLinks() {
           <NavigationMenuTrigger>Thử thách</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {components.map((component) => (
+              {components.map((component, index) => (
                 <ListItem
-                  key={component.title}
+                  key={index}
                   title={component.title}
                   href={component.href}
                 >
@@ -48,10 +48,10 @@ export function HeaderNavLinks() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link to="/aboutus">
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Về chúng tôi
-            </NavigationMenuLink>
+          <Link to="/aboutus" className={navigationMenuTriggerStyle()}>
+            Về chúng tôi
+            {/* <NavigationMenu className={navigationMenuTriggerStyle()}>
+            </NavigationMenu> */}
           </Link>
         </NavigationMenuItem>
       </NavigationMenuList>

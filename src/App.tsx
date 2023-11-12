@@ -1,6 +1,10 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from 'react-router-dom';
 import { privateRoutes, publicRoutes } from './configs/router.tsx';
 import DefaultLayout from './layouts/DefaultLayout.tsx';
 import GlobalComponents from './components/GlobalComponents.tsx';
@@ -11,7 +15,7 @@ export default function App() {
   return (
     <>
       <Helmet>
-        <title>FakeBillPro | Beta Testing</title>
+        <title>vnRoadmaps</title>
         {/* <link rel="icon" type="image/x-icon" href="favicon.png"></link> */}
       </Helmet>
       <Router>
@@ -68,6 +72,7 @@ export default function App() {
               />
             );
           })}
+          <Route path="*" Component={() => <div>Notfound</div>} />
         </Routes>
       </Router>
       <GlobalComponents />

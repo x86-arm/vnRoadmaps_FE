@@ -1,18 +1,28 @@
 import authServices, { LoginData } from "@/services/authServices"
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { store } from ".."
 
 export const login = createAsyncThunk('user/login', async (data: LoginData, { rejectWithValue }) => {
     try {
         const res = await authServices.login(data)
-
         return res.data
     }
     catch (error: any) {
-        return rejectWithValue(error.response.data.message)
+        return rejectWithValue((error.code == "ERR_NETWORK" ? "Lỗi mạng" : error.response.data.message) || "Error")
     }
-    // if (res.status != 200) rejectWithValue(res.data)
 })
 
+export const info = createAsyncThunk('user/info', async (data: null, { rejectWithValue }) => {
+    try {
+        const token = store.getState().userReducer.tokens.accessToken
+        if (!token) throw "Err"
+        const res = await authServices.info(token)
+        return res.data
+    }
+    catch (error: any) {
+        return rejectWithValue((error.code == "ERR_NETWORK" ? "Lỗi mạng" : error.response.data.message) || "Error")
+    }
+})
 interface InitialState {
     info: null | Session,
     isLoading: boolean,
@@ -62,7 +72,19 @@ const userReducer = createSlice({
             })
             .addCase(login.rejected, (state, action) => {
                 state.isLoading = false
-                state.error = "err"
+                state.error = action.error.message
+            })
+            .addCase(info.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(info.fulfilled, (state, action) => {
+                state.isLoading = false
+                // Add any fetched posts to the array
+                state.info = action.payload.data
+            })
+            .addCase(info.rejected, (state, action) => {
+                state.isLoading = false
+                state.error = action.error.message
             })
     }
 

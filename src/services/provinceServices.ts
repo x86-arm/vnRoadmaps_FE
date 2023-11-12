@@ -1,14 +1,22 @@
 import axiosInstance from '@/utils/axios';
 
-const baseURL = "/roadmaps/";
+const baseURL = "/services/";
 
 export const provinceServices = {
-  getProvince: (data: { slug: string }) => {
-    const url = baseURL + data.slug;
-    return axiosInstance.get(url);
+  getProvince: (data: { slug: string }, accessToken?: string) => {
+    const url = baseURL + "getProvince/" + data.slug;
+    return axiosInstance.post(url, null, {
+      headers: {
+        Authorization: `JWT ${accessToken}`
+      }
+    });
   },
-  getProvincesSlug: () => {
+  getProvincesSlug: (accessToken?: string) => {
     const url = baseURL + "getProvinceSlug";
-    return axiosInstance.post(url);
+    return axiosInstance.post(url, null, {
+      headers: {
+        Authorization: `JWT ${accessToken}`
+      }
+    })
   },
 };

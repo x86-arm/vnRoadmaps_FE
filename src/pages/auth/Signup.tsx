@@ -28,6 +28,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '@/store/reducers/userReducer';
 import { AppDispatch } from '@/store';
 import Logo from '@/components/Logo';
+import authServices from '@/services/authServices';
 
 const formSchema = z.object({
   fullname: z
@@ -36,12 +37,7 @@ const formSchema = z.object({
       message: 'Tên phải dài ít nhất 4 kí tự.',
     })
     .max(256),
-  username: z
-    .string()
-    .min(4, {
-      message: 'Tên đăng nhập phải dài ít nhất 4 kí tự.',
-    })
-    .max(256),
+  email: z.string().email(),
   password: z
     .string()
     .regex(
@@ -75,27 +71,27 @@ export default function Signup() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: '',
+      email: '',
+      fullname: '',
       password: '',
     },
   });
 
   const handleLogin = async (data: z.infer<typeof formSchema>) => {
     setOnSignup(true);
-    await dispatch(login(data))
-      .then(unwrapResult)
-      .then((originalPromiseResult) => {
+    await authServices
+      .signup(data)
+      .then((res) => {
         toast({
-          title: 'Đăng nhập thành công!',
-          description: 'Trở về trang chủ sau 3 giây',
+          title: 'Đăng kí thành công!',
+          description: 'Trở về trang đăng nhập sau 2 giây',
         });
-        setTimeout(() => navigate('/'), 3000);
-        console.log(originalPromiseResult);
+        setTimeout(() => navigate('/login'), 2000);
       })
-      .catch((rejectedValueOrSerializedError: SerializedError) => {
+      .catch((err) => {
         toast({
-          title: 'Đăng nhập thất bại',
-          description: rejectedValueOrSerializedError.message,
+          title: 'Đăng kí thất bại',
+          // description: err.message,
         });
         setOnSignup(false);
       });
@@ -137,7 +133,7 @@ export default function Signup() {
             />
             <FormField
               control={form.control}
-              name="username"
+              name="email"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
