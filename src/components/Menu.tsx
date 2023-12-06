@@ -11,8 +11,11 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from './ui/button';
 import authServices from '@/services/authServices';
-import { Link } from 'react-router-dom';
-import { store } from '@/store';
+import { Link, redirect, useNavigate } from 'react-router-dom';
+import { AppDispatch, store } from '@/store';
+import { deleteAllCookies } from '@/utils';
+import { useDispatch } from 'react-redux';
+import { clearTokens } from '@/store/reducers/userReducer';
 
 export default function Menu({
   children,
@@ -22,14 +25,18 @@ export default function Menu({
   //   menuItems: MenuItems;
 }) {
   const [onLogout, setOnLogout] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+
   const handleLogout = () => {
     setOnLogout(true);
     authServices
       .logout(store.getState().userReducer.tokens.accessToken || undefined)
       .then(() => {
         setOnLogout(true);
-        document.cookie = '';
-        window.location.reload();
+        dispatch(clearTokens());
+        deleteAllCookies();
+        navigate('/login');
       })
       .catch(() => setOnLogout(false));
   };

@@ -120,7 +120,7 @@ export default function Login() {
                   <FormControl>
                     <Input
                       className="w-full"
-                      placeholder="xuanbach@mail.com"
+                      placeholder="xuanbach@vnroadmaps.com"
                       {...field}
                       autoComplete="email"
                       type="email"

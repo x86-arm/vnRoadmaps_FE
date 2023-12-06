@@ -1,14 +1,15 @@
 import authServices from "@/services/authServices";
-import { store } from "@/store";
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:8000/v1/',
+    baseURL: import.meta.env.VITE_PUBLIC_API_ENDPOINT,
     withCredentials: true,
     headers: {
         'X-Developer': 'XuanBachDotDev',
     }
 });
+
+
 axiosInstance.interceptors.response.use((res) => {
     return res.data
 }, async (err) => {

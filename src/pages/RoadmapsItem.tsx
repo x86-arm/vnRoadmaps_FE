@@ -12,6 +12,8 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Link, useParams } from 'react-router-dom';
+import { cn } from '@/utils';
+import { store } from '@/store';
 
 interface Provinces {
   name: string;
@@ -37,8 +39,17 @@ export default function RoadmapsItem() {
   if (!slug) return <></>;
 
   useEffect(() => {
-    provinceServices.getProvince({ slug }).then((res) => setProvince(res.data));
+    provinceServices
+      .getProvince(
+        { slug },
+        store.getState().userReducer.tokens.accessToken as any
+      )
+      .then((res) => setProvince(res.data))
+      .catch(() => {
+        throw 'Error';
+      });
   }, []);
+
   return (
     <div className=" px-12 py-5">
       <div className="flex text-muted-foreground">
@@ -63,10 +74,15 @@ export default function RoadmapsItem() {
           {params.thingstodo}
         </Link> */}
       </div>
-      <div className="mt-3 flex flex-col md:flex-row">
-        <div className="flex flex-col items-start space-y-2">
-          <h2>{province?.name}</h2>
-          <span className="text-muted-foreground">{province?.description}</span>
+      <div
+        className={cn(
+          '-mx-12 mt-3 flex h-[470px] flex-col bg-cover bg-center md:flex-row'
+        )}
+        style={{ backgroundImage: `url(${province?.image})` }}
+      >
+        <div className="flex w-full flex-col items-start space-y-2 bg-gradient-to-b from-black/90 via-black/60 to-transparent px-8 pt-5 md:px-12">
+          <h2 className="text-white">{province?.name}</h2>
+          <span className="text-gray-300">{province?.description}</span>
           <Button asChild>
             <Link
               target="_blank"
@@ -74,13 +90,14 @@ export default function RoadmapsItem() {
               to={province?.mapsUrl || ''}
             >
               <Map />
+              <span className="ml-2">Bản đồ</span>
             </Link>
           </Button>
         </div>
-        <img
+        {/* <img
           className="mt-5 w-full rounded object-cover md:ml-6 md:mt-0 md:w-[500px]"
           src={province?.image}
-        />
+        /> */}
       </div>
       <div className="mt-5">
         <h4>Điểm du lịch</h4>

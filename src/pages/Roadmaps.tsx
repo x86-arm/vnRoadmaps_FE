@@ -11,7 +11,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 export default function Roadmaps() {
   const [searchInput, setSearchInput] = useState('');
   const [provinces, setProvinces] = useState<
-    { name: string; slug: string }[] | []
+    { name: string; slug: string; image: string }[] | []
   >([]);
   const [userInfo, setUserInfo] = useState<Session>();
   const dispatch = useDispatch<AppDispatch>();

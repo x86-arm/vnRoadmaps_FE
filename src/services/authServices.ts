@@ -42,7 +42,6 @@ const authServices = {
   logout: (accessToken?: string
   ) => {
     const url = baseURL + "/logout";
-    document.cookie = ""
     return axiosInstance.post(
       url, null, { headers: { 'Authorization': 'JWT ' + accessToken } }
     );

@@ -46,7 +46,7 @@ export default function Home() {
                 </Button>
               </div>
               <div
-                className="relative mt-5 flex w-full items-center justify-center rounded md:w-[50vw]"
+                className="relative mt-5 flex w-full items-center justify-center rounded xl:w-[50vw]"
                 onClick={() => setIsOpen(true)}
               >
                 <PlayCircle className="absolute h-12 w-12" />

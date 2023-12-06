@@ -59,6 +59,9 @@ const userReducer = createSlice({
     name: "user",
     initialState,
     reducers: {
+        clearTokens: (state) => {
+            state.tokens.refreshToken = state.tokens.accessToken = state.info = null
+        }
     },
     extraReducers(builder) {
         builder
@@ -90,6 +93,6 @@ const userReducer = createSlice({
 
 })
 
-// export const { } = userReducer.actions
+export const { clearTokens } = userReducer.actions
 
 export default userReducer.reducer

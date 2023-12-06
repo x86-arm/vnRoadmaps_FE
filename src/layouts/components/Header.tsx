@@ -57,7 +57,7 @@ export default function Header() {
         <div className="flex flex-1 items-center justify-end space-x-2">
           {/* <LanguageChange locale={locale} /> */}
           <ThemeChanger />
-          {path != '/roadmaps' ? (
+          {!path.includes('/roadmaps') ? (
             <Button variant={'outline'} asChild>
               <Link to="/login">Đăng nhập</Link>
             </Button>
