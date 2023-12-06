@@ -7,12 +7,12 @@ export default function Footer() {
         <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
           Built by{" "}
           <Link
-            to="https://www.facebook.com/xuanbachdotdev/"
+            to="https://t.me/x86arm"
             target="_blank"
             rel="noreferrer"
             className="font-medium underline underline-offset-4"
           >
-            xuanbachdotdev
+            x86arm
           </Link>
           . All rights reserved{" "}
           {/* <a

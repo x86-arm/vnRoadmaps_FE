@@ -7,7 +7,7 @@ export default function ProtectedRoute({
 }: {
   children: React.ReactNode;
 }) {
-  const token = store.getState().userReducer.tokens.accessToken;
+  const token = store.getState().userReducer.tokens.refreshToken;
 
   // if (load) {
   //   return <LoadingScreen />;
