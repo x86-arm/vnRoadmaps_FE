@@ -1,4 +1,3 @@
-import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { AuthIntroduce, authIntroduce } from '@/constants/authIntroduce';
 import Logo from './Logo';
 

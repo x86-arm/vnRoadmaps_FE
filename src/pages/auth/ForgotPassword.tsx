@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/use-toast';
 import authServices from '@/services/authServices';
-import React, { ChangeEventHandler, ReactEventHandler } from 'react';
+import React from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -43,7 +43,7 @@ export default function ForgotPassword() {
     setOnForgotPassword(true);
     await authServices
       .forgotPassword(data)
-      .then((res) => {
+      .then(() => {
         setForgotPasswordSuccess(true);
       })
       .catch((err) => {

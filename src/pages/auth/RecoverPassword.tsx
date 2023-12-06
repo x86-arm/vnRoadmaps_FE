@@ -62,7 +62,7 @@ export default function RecoverPassword() {
     setOnForgotPassword(true);
     await authServices
       .recoverPassword({ ...data, reqID })
-      .then((res) => {
+      .then(() => {
         setForgotPasswordSuccess(true);
       })
       .catch((err) => {

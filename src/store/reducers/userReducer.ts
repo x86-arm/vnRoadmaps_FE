@@ -1,6 +1,6 @@
 import authServices, { LoginData } from "@/services/authServices"
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { store } from ".."
+import { store } from "../index"
 
 export const login = createAsyncThunk('user/login', async (data: LoginData, { rejectWithValue }) => {
     try {
@@ -13,6 +13,7 @@ export const login = createAsyncThunk('user/login', async (data: LoginData, { re
 })
 
 export const info = createAsyncThunk('user/info', async (data: null, { rejectWithValue }) => {
+    console.log(data)
     try {
         const token = store.getState().userReducer.tokens.accessToken
         if (!token) throw "Err"

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css'; // optional
-import { LogOut, SettingsIcon } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from './ui/button';
 import authServices from '@/services/authServices';
-import { Link, redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AppDispatch, store } from '@/store';
 import { deleteAllCookies } from '@/utils';
 import { useDispatch } from 'react-redux';

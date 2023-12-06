@@ -21,7 +21,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Eye, EyeOff } from 'lucide-react';
-import { SerializedError, unwrapResult } from '@reduxjs/toolkit';
+import { unwrapResult } from '@reduxjs/toolkit';
 import { useToast } from '@/components/ui/use-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';

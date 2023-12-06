@@ -80,7 +80,7 @@ export default function RoadmapsItem() {
         )}
         style={{ backgroundImage: `url(${province?.image})` }}
       >
-        <div className="flex w-full flex-col items-start space-y-2 bg-gradient-to-b from-black/90 via-black/60 to-transparent px-8 pt-5 md:px-12">
+        <div className="flex w-full flex-col items-start space-y-2 bg-gradient-to-b from-black/90 to-transparent px-8 pt-5 md:px-12">
           <h2 className="text-white">{province?.name}</h2>
           <span className="text-gray-300">{province?.description}</span>
           <Button asChild>
@@ -116,7 +116,10 @@ export default function RoadmapsItem() {
                   <DialogTitle>{item.name}</DialogTitle>
                   <DialogDescription>{item.description}</DialogDescription>
                 </DialogHeader>
-                <img src={item.image} />
+                <img
+                  className="h-[340px] w-full object-cover"
+                  src={item.image}
+                />
                 <Button asChild>
                   <Link
                     target="_blank"

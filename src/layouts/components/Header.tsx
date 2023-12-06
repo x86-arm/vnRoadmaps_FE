@@ -1,8 +1,6 @@
-import { useEffect } from 'react';
 import { ThemeChanger } from '../../components/ThemeChanger';
-import { HeaderNavLinks } from './HeaderNavLinks';
 import { Button } from '../../components/ui/button';
-import { ChevronDown, Mountain, PanelLeftOpen } from 'lucide-react';
+import {PanelLeftOpen } from 'lucide-react';
 
 import {
   Sheet,
@@ -52,7 +50,7 @@ export default function Header() {
 
         <div className="mr-4 hidden md:flex">
           <Logo className="items-center justify-center" />
-          <HeaderNavLinks />
+          {/* <HeaderNavLinks /> */}
         </div>
         <div className="flex flex-1 items-center justify-end space-x-2">
           {/* <LanguageChange locale={locale} /> */}

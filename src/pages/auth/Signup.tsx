@@ -21,12 +21,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Eye, EyeOff } from 'lucide-react';
-import { SerializedError, unwrapResult } from '@reduxjs/toolkit';
 import { useToast } from '@/components/ui/use-toast';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { login } from '@/store/reducers/userReducer';
-import { AppDispatch } from '@/store';
 import Logo from '@/components/Logo';
 import authServices from '@/services/authServices';
 
@@ -63,8 +59,6 @@ export default function Signup() {
   const [onSignup, setOnSignup] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const dispatch = useDispatch<AppDispatch>();
-
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -81,14 +75,14 @@ export default function Signup() {
     setOnSignup(true);
     await authServices
       .signup(data)
-      .then((res) => {
+      .then(() => {
         toast({
           title: 'Đăng kí thành công!',
           description: 'Trở về trang đăng nhập sau 2 giây',
         });
         setTimeout(() => navigate('/login'), 2000);
       })
-      .catch((err) => {
+      .catch(() => {
         toast({
           title: 'Đăng kí thất bại',
           // description: err.message,
